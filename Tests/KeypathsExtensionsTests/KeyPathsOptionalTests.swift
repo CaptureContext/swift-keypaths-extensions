@@ -32,7 +32,7 @@ struct KeyPathsOptionalTests {
 				static let propertyValue: WritableKeyPath<Property, Int> = \.value
 
 				// Equivalent to `expression` keypath
-				static let combined: WritableKeyPath<Root, Int?> = property.appending(propertyValue)
+				static let combined: WritableKeyPath<Root, Int?> = property.appending(path: propertyValue)
 
 				// Won't set value if property is nil
 				static let combinedUnwrapped: WritableKeyPath<Root, Int> = combined
@@ -110,7 +110,7 @@ struct KeyPathsOptionalTests {
 		}
 
 		@Test
-		func combinedAgressivelyUnwrapped() async throws {
+		func combinedAggressivelyUnwrapped() async throws {
 			let kp: WritableKeyPath<Root, Int> = Root.kp.combinedAggressivelyUnwrapped
 
 			do { // getters
@@ -216,7 +216,7 @@ struct KeyPathsOptionalTests {
 				static let propertyValue: ReferenceWritableKeyPath<Property, Int> = \.value
 
 				// Equivalent to `expression` keypath
-				static let combined: ReferenceWritableKeyPath<Root, Int?> = property.appending(propertyValue)
+				static let combined: ReferenceWritableKeyPath<Root, Int?> = property.appending(path: propertyValue)
 
 				// Won't set value if property is nil
 				static let combinedUnwrapped: ReferenceWritableKeyPath<Root, Int> = combined
@@ -294,7 +294,7 @@ struct KeyPathsOptionalTests {
 		}
 
 		@Test
-		func combinedAgressivelyUnwrapped() async throws {
+		func combinedAggressivelyUnwrapped() async throws {
 			let kp: WritableKeyPath<Root, Int> = Root.kp.combinedAggressivelyUnwrapped
 
 			do { // getters
@@ -400,7 +400,7 @@ struct KeyPathsOptionalTests {
 				static let propertyValue: WritableKeyPath<Property, Int> = \.value
 
 				// Equivalent to `expression` keypath
-				static let combined: ReferenceWritableKeyPath<Root, Int?> = property.appending(propertyValue)
+				static let combined: ReferenceWritableKeyPath<Root, Int?> = property.appending(path: propertyValue)
 
 				// Won't set value if property is nil
 				static let combinedUnwrapped: WritableKeyPath<Root, Int> = combined
@@ -478,7 +478,7 @@ struct KeyPathsOptionalTests {
 		}
 
 		@Test
-		func combinedAgressivelyUnwrapped() async throws {
+		func combinedAggressivelyUnwrapped() async throws {
 			let kp: WritableKeyPath<Root, Int> = Root.kp.combinedAggressivelyUnwrapped
 
 			do { // getters
@@ -584,7 +584,7 @@ struct KeyPathsOptionalTests {
 				static let propertyValue: ReferenceWritableKeyPath<Property, Int> = \.value
 
 				// Equivalent to `expression` keypath
-				static let combined: ReferenceWritableKeyPath<Root, Int?> = property.appending(propertyValue)
+				static let combined: ReferenceWritableKeyPath<Root, Int?> = property.appending(path: propertyValue)
 
 				// Won't set value if property is nil
 				static let combinedUnwrapped: ReferenceWritableKeyPath<Root, Int> = combined
@@ -662,7 +662,7 @@ struct KeyPathsOptionalTests {
 		}
 
 		@Test
-		func combinedAgressivelyUnwrapped() async throws {
+		func combinedAggressivelyUnwrapped() async throws {
 			let kp: ReferenceWritableKeyPath<Root, Int> = Root.kp.combinedAggressivelyUnwrapped
 
 			do { // getters
@@ -727,7 +727,7 @@ struct KeyPathsOptionalTests {
 				#expect(sut.property?.value == nil)
 
 				// ⚠️
-				// Even tho it's agressively unwrapped seems like
+				// Even tho it's aggressively unwrapped seems like
 				// KeyPath internals won't perform the assignment
 				// if property is nil
 				sut[keyPath: kp] = 0
