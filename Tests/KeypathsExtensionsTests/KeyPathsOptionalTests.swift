@@ -32,7 +32,7 @@ struct KeyPathsOptionalTests {
 				static let propertyValue: WritableKeyPath<Property, Int> = \.value
 
 				// Equivalent to `expression` keypath
-				static let combined: WritableKeyPath<Root, Int?> = property.appending(propertyValue)
+				static let combined: WritableKeyPath<Root, Int?> = property.appending(path: propertyValue)
 
 				// Won't set value if property is nil
 				static let combinedUnwrapped: WritableKeyPath<Root, Int> = combined
@@ -216,7 +216,7 @@ struct KeyPathsOptionalTests {
 				static let propertyValue: ReferenceWritableKeyPath<Property, Int> = \.value
 
 				// Equivalent to `expression` keypath
-				static let combined: ReferenceWritableKeyPath<Root, Int?> = property.appending(propertyValue)
+				static let combined: ReferenceWritableKeyPath<Root, Int?> = property.appending(path: propertyValue)
 
 				// Won't set value if property is nil
 				static let combinedUnwrapped: ReferenceWritableKeyPath<Root, Int> = combined
@@ -400,7 +400,7 @@ struct KeyPathsOptionalTests {
 				static let propertyValue: WritableKeyPath<Property, Int> = \.value
 
 				// Equivalent to `expression` keypath
-				static let combined: ReferenceWritableKeyPath<Root, Int?> = property.appending(propertyValue)
+				static let combined: ReferenceWritableKeyPath<Root, Int?> = property.appending(path: propertyValue)
 
 				// Won't set value if property is nil
 				static let combinedUnwrapped: WritableKeyPath<Root, Int> = combined
@@ -584,7 +584,7 @@ struct KeyPathsOptionalTests {
 				static let propertyValue: ReferenceWritableKeyPath<Property, Int> = \.value
 
 				// Equivalent to `expression` keypath
-				static let combined: ReferenceWritableKeyPath<Root, Int?> = property.appending(propertyValue)
+				static let combined: ReferenceWritableKeyPath<Root, Int?> = property.appending(path: propertyValue)
 
 				// Won't set value if property is nil
 				static let combinedUnwrapped: ReferenceWritableKeyPath<Root, Int> = combined

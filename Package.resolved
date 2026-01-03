@@ -1,0 +1,15 @@
+{
+  "originHash" : "8021484f945aab0451b9dad5fc4fc86035a41ee3d0946b47b931931169216a13",
+  "pins" : [
+    {
+      "identity" : "swift-marker-protocols",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/capturecontext/swift-marker-protocols.git",
+      "state" : {
+        "revision" : "bfc08219f2d40f56b090de92e291bd05e1309441",
+        "version" : "1.1.0"
+      }
+    }
+  ],
+  "version" : 3
+}

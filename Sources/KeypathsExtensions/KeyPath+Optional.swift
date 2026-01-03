@@ -1,4 +1,8 @@
-extension _AppendKeyPath {
+import Foundation
+import SwiftMarkerProtocols
+@_spi(Internals) import KeyPathsExtensionsUtils
+
+extension _AnyKeyPathProtocol {
 	/// Unwraps keyPath with provided default value
 	///
 	/// - Parameters:
@@ -16,7 +20,7 @@ extension _AppendKeyPath {
 		with defaultValue: Wrapped,
 		aggressive: Bool = false
 	) -> KeyPath<Root, Wrapped> where Self: KeyPath<Root, Wrapped?> {
-		appending(path: \.[_forceSet: aggressive, unwrappedWith: _ForceHashable(defaultValue, hash: self)])
+		appending(path: self.unwrapPath(with: defaultValue, aggressive: aggressive))
 	}
 
 	/// Unwraps keyPath with provided default value
@@ -39,8 +43,9 @@ extension _AppendKeyPath {
 	public func unwrapped<Root, Wrapped>(
 		with defaultValue: Wrapped,
 		aggressive: Bool = false
-	) -> WritableKeyPath<Root, Wrapped> where Self == WritableKeyPath<Root, Wrapped?> {
-		appending(path: \.[_forceSet: aggressive, unwrappedWith: _ForceHashable(defaultValue, hash: self)])
+	) -> WritableKeyPath<Root, Wrapped>
+	where Self == WritableKeyPath<Root, Wrapped?> {
+		appending(path: self.unwrapPath(with: defaultValue, aggressive: aggressive))
 	}
 
 	/// Unwraps keyPath with provided default value
@@ -63,8 +68,9 @@ extension _AppendKeyPath {
 	public func unwrapped<Root, Wrapped>(
 		with defaultValue: Wrapped,
 		aggressive: Bool = false
-	) -> ReferenceWritableKeyPath<Root, Wrapped> where Self == ReferenceWritableKeyPath<Root, Wrapped?> {
-		appending(path: \.[_forceSet: aggressive, unwrappedWith: _ForceHashable(defaultValue, hash: self)])
+	) -> ReferenceWritableKeyPath<Root, Wrapped>
+	where Self == ReferenceWritableKeyPath<Root, Wrapped?> {
+		appending(path: self.unwrapPath(with: defaultValue, aggressive: aggressive))
 	}
 }
 
@@ -93,10 +99,12 @@ extension _AppendKeyPath {
 	///   - keyPath: Appended `KeyPath`
 	///
 	/// - Returns: `KeyPath<Value, LocalValue?>`
+	@inlinable
 	public func appending<Root, Value, AppendedValue>(
-		_ keyPath: KeyPath<Value, AppendedValue>
-	) -> KeyPath<Root, AppendedValue?> where Self: KeyPath<Root, Value?> {
-		appending(path: keyPath._keyPathOfOptionalRoot)
+		path keyPath: KeyPath<Value, AppendedValue>
+	) -> KeyPath<Root, AppendedValue?>
+	where Self: KeyPath<Root, Value?> {
+		appending(path: keyPath.withOptionalRoot())
 	}
 
 	/// Appends unwrapped KeyPath to a keyPath to optional Value
@@ -123,10 +131,12 @@ extension _AppendKeyPath {
 	///   - keyPath: Appended `ReferenceWritableKeyPath`
 	///
 	/// - Returns: `ReferenceWritableKeyPath<Value, LocalValue?>`
+	@inlinable
 	public func appending<Root, Value, AppendedValue>(
-		_ keyPath: ReferenceWritableKeyPath<Value, AppendedValue>
-	) -> ReferenceWritableKeyPath<Root, AppendedValue?> where Self == KeyPath<Root, Value?> {
-		appending(path: keyPath._referenceWritableKeyPathOfOptionalRoot)
+		path keyPath: ReferenceWritableKeyPath<Value, AppendedValue>
+	) -> ReferenceWritableKeyPath<Root, AppendedValue?>
+	where Self == KeyPath<Root, Value?> {
+		appending(path: keyPath.withOptionalRoot())
 	}
 
 	/// Appends unwrapped KeyPath to a keyPath to optional Value
@@ -153,10 +163,12 @@ extension _AppendKeyPath {
 	///   - keyPath: Appended `WritableKeyPath`
 	///
 	/// - Returns: `WritableKeyPath<Value, LocalValue?>`
+	@inlinable
 	public func appending<Root, Value, AppendedValue>(
-		_ keyPath: WritableKeyPath<Value, AppendedValue>
-	) -> WritableKeyPath<Root, AppendedValue?> where Self == WritableKeyPath<Root, Value?> {
-		appending(path: keyPath._writableKeyPathOfOptionalRoot)
+		path keyPath: WritableKeyPath<Value, AppendedValue>
+	) -> WritableKeyPath<Root, AppendedValue?>
+	where Self == WritableKeyPath<Root, Value?> {
+		appending(path: keyPath.withOptionalRoot())
 	}
 
 	/// Appends unwrapped KeyPath to a keyPath to optional Value
@@ -183,10 +195,12 @@ extension _AppendKeyPath {
 	///   - keyPath: Appended `WritableKeyPath`
 	///
 	/// - Returns: `ReferenceWritableKeyPath<Value, LocalValue?>`
+	@inlinable
 	public func appending<Root, Value, AppendedValue>(
-		_ keyPath: ReferenceWritableKeyPath<Value, AppendedValue>
-	) -> ReferenceWritableKeyPath<Root, AppendedValue?> where Self == WritableKeyPath<Root, Value?> {
-		appending(path: keyPath._referenceWritableKeyPathOfOptionalRoot)
+		path keyPath: ReferenceWritableKeyPath<Value, AppendedValue>
+	) -> ReferenceWritableKeyPath<Root, AppendedValue?>
+	where Self == WritableKeyPath<Root, Value?> {
+		appending(path: keyPath.withOptionalRoot())
 	}
 
 	/// Appends unwrapped KeyPath to a keyPath to optional Value
@@ -213,30 +227,68 @@ extension _AppendKeyPath {
 	///   - keyPath: Appended `WritableKeyPath`
 	///
 	/// - Returns: `ReferenceWritableKeyPath<Value, LocalValue?>`
+	@inlinable
 	public func appending<Root, Value, AppendedValue>(
-		_ keyPath: WritableKeyPath<Value, AppendedValue>
-	) -> ReferenceWritableKeyPath<Root, AppendedValue?> where Self == ReferenceWritableKeyPath<Root, Value?> {
-		appending(path: keyPath._writableKeyPathOfOptionalRoot)
+		path keyPath: WritableKeyPath<Value, AppendedValue>
+	) -> ReferenceWritableKeyPath<Root, AppendedValue?>
+	where Self == ReferenceWritableKeyPath<Root, Value?> {
+		appending(path: keyPath.withOptionalRoot())
+	}
+
+	public func withOptionalRoot<Root, Value>() -> KeyPath<Root?, Value?>
+	where Self: KeyPath<Root, Value> { \Optional<Root>.self[_unwrappedKeyPath: self] }
+
+	public func withOptionalRoot<Root, Value>() -> WritableKeyPath<Root?, Value?>
+	where Self == WritableKeyPath<Root, Value> { \Optional<Root>.self[_unwrappedKeyPath: self] }
+
+	public func withOptionalRoot<Root, Value>() -> ReferenceWritableKeyPath<Root?, Value?>
+	where Self == ReferenceWritableKeyPath<Root, Value> { \Optional<Root>.self[_unwrappedKeyPath: self] }
+}
+
+extension _AnyKeyPathProtocol {
+	@_spi(Internals)
+	public func unwrapPath<Wrapped>(
+		with defaultValue: Wrapped,
+		aggressive: Bool
+	) -> WritableKeyPath<Wrapped?, Wrapped> {
+		return \Optional<Wrapped>._map
+			.self[forceHashableWith: [self]]
+			.self[
+				unwrappedWith: forceHashable(defaultValue),
+				aggressive: aggressive
+			]
+			.self[map: \.value.value]
 	}
 }
 
-extension KeyPath {
+extension Optional {
 	@_spi(Internals)
-	public var _keyPathOfOptionalRoot: KeyPath<Root?, Value?> {
-		\Optional<Root>.self[_unwrappedKeyPath: self]
+	public subscript<Value>(
+		_unwrappedKeyPath keyPath: KeyPath<Wrapped, Value>
+	) -> Value? {
+		get { self?[keyPath: keyPath] }
+	}
+
+	@_spi(Internals)
+	public subscript<Value>(
+		_unwrappedKeyPath keyPath: WritableKeyPath<Wrapped, Value>
+	) -> Value? {
+		get { self?[keyPath: keyPath] }
+		set {
+			guard let newValue else { return }
+			self?[keyPath: keyPath] = newValue
+		}
+	}
+
+	@_spi(Internals)
+	public subscript<Value>(
+		_unwrappedKeyPath keyPath: ReferenceWritableKeyPath<Wrapped, Value>
+	) -> Value? {
+		get { self?[keyPath: keyPath] }
+		nonmutating set {
+			guard let newValue else { return }
+			self?[keyPath: keyPath] = newValue
+		}
 	}
 }
 
-extension WritableKeyPath {
-	@_spi(Internals)
-	public var _writableKeyPathOfOptionalRoot: WritableKeyPath<Root?, Value?> {
-		\Optional<Root>.self[_unwrappedKeyPath: self]
-	}
-}
-
-extension ReferenceWritableKeyPath {
-	@_spi(Internals)
-	public var _referenceWritableKeyPathOfOptionalRoot: ReferenceWritableKeyPath<Root?, Value?> {
-		\Optional<Root>.self[_unwrappedKeyPath: self]
-	}
-}
