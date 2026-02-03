@@ -13,7 +13,7 @@ extension KeyPathMapper {
 extension KeyPathMapper where Value: _OptionalProtocol {
 	public subscript(
 		unwrappedWith defaultValue: Value.Wrapped,
-		aggressive aggressive: Bool = false,
+		aggressive aggressive: Bool = false
 	) -> KeyPathMapper<Value.Wrapped> {
 		get { .init(self.value.__marker_value ?? defaultValue) }
 		set {
@@ -26,7 +26,7 @@ extension KeyPathMapper where Value: _OptionalProtocol {
 	@inlinable
 	public subscript<T>(
 		unwrappedWith defaultValue: Hashed<T>,
-		aggressive aggressive: Bool = false,
+		aggressive aggressive: Bool = false
 	) -> KeyPathMapper<T> where Value == Optional<T> {
 		get { self[unwrappedWith: defaultValue.wrappedValue] }
 		set { self[unwrappedWith: defaultValue.wrappedValue, aggressive: aggressive] = newValue }
