@@ -1,6 +1,6 @@
 # swift-keypaths-extensions
 
-[![SwiftPM 6.0](https://img.shields.io/badge/swiftpm-6.0-ED523F.svg?style=flat)](https://swift.org/download/) ![Platforms](https://img.shields.io/badge/platforms-iOS_11_|_macOS_10.13_|_tvOS_11_|_watchOS_4_|_Catalyst_13-ED523F.svg?style=flat) [![@capture_context](https://img.shields.io/badge/contact-@capture__context-1DA1F2.svg?style=flat&logo=twitter)](https://twitter.com/capture_context) 
+[![Swift 6.0](https://img.shields.io/badge/Swift-6.0_|_5.9-ED523F.svg?style=flat)](https://swift.org/download/) ![Platforms](https://img.shields.io/badge/Platforms-iOS_|_macOS_|_tvOS_|_watchOS_|_Catalyst-ED523F.svg?style=flat) [![@capture_context](https://img.shields.io/badge/contact-@capture__context-1DA1F2.svg?style=flat&logo=twitter)](https://twitter.com/capture_context) 
 
 Extensions for Swift KeyPaths. Currently this package contains helpers for managing KeyPaths with Optional values, if you need keypaths for enums, take a look at [`pointfreeco/swift-case-paths`](https://github.com/pointfreeco/swift-case-paths)
 
@@ -339,7 +339,7 @@ If you use SwiftPM for your project structure, add KeyPathsExtensions to your pa
 
 ```swift
 .package(
-  url: "git@github.com:capturecontext/swift-keypaths-extensions.git", 
+  url: "https://github.com/capturecontext/swift-keypaths-extensions.git", 
   .upToNextMinor(from: "0.1.0")
 )
 ```
@@ -348,7 +348,7 @@ or via HTTPS
 
 ```swift
 .package(
-  url: "https://github.com:capturecontext/swift-keypaths-extensions.git", 
+  url: "https://github.com/capturecontext/swift-keypaths-extensions.git", 
   .upToNextMinor("0.1.0")
 )
 ```
@@ -364,4 +364,4 @@ Do not forget about target dependencies:
 
 ## License
 
-This library is released under the MIT license. See [LICENSE](./LICENSE) for details.
+This library is released under the MIT license. See [LICENSE](LICENSE) for details.
