@@ -1,4 +1,4 @@
-// swift-tools-version: 5.10
+// swift-tools-version: 5.9
 
 import PackageDescription
 
@@ -17,11 +17,11 @@ let package = Package(
 	dependencies: [
 		.package(
 			url: "https://github.com/capturecontext/swift-hashed.git",
-			.upToNextMajor(from: "0.0.1")
+			.upToNextMajor(from: "0.0.2")
 		),
 		.package(
 			url: "https://github.com/capturecontext/swift-marker-protocols.git",
-			.upToNextMajor(from: "1.2.0")
+			.upToNextMajor(from: "1.3.0")
 		),
 	],
 	targets: [
