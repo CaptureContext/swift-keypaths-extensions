@@ -1,6 +1,6 @@
 # swift-keypaths-extensions
 
-[![Swift 6.0](https://img.shields.io/badge/Swift-6.0_|_5.9-ED523F.svg?style=flat)](https://swift.org/download/) ![Platforms](https://img.shields.io/badge/Platforms-iOS_|_macOS_|_tvOS_|_watchOS_|_Catalyst-ED523F.svg?style=flat) [![@capture_context](https://img.shields.io/badge/contact-@capture__context-1DA1F2.svg?style=flat&logo=twitter)](https://twitter.com/capture_context) 
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FCaptureContext%2Fswift-keypaths-extensions%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/CaptureContext/swift-keypaths-extensions) [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FCaptureContext%2Fswift-keypaths-extensions%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/CaptureContext/swift-keypaths-extensions) [![@capture_context](https://img.shields.io/badge/Contact-@capture__context-2584C4.svg?style=flat&logo=twitter)](https://twitter.com/capture_context)
 
 Extensions for Swift KeyPaths. Currently this package contains helpers for managing KeyPaths with Optional values, if you need keypaths for enums, take a look at [`pointfreeco/swift-case-paths`](https://github.com/pointfreeco/swift-case-paths)
 
@@ -205,14 +205,14 @@ import KeyPathsMapper
 // chance that some other lib or future Swift version
 // will introduce such a thing on a custom type
 extension KeyPathMapper where Value == Float {
-	var double: KeyPathMapper<Double> {
-		get { .init(.init(self.value)) }
-		set { self.value = .init(newValue.value) }
-	}
+  var double: KeyPathMapper<Double> {
+    get { .init(.init(self.value)) }
+    set { self.value = .init(newValue.value) }
+  }
 }
 
 struct ExampleView: View {
-	@State
+  @State
   private var value: Float = 0
   
   var body: some View {
@@ -227,9 +227,9 @@ struct ExampleView: View {
 //
 // extension Float {
 //   private var double: Double {
-//		 get { .init(self.value) }
-//	   set { self.value = .init(newValue) }
-//	 }
+//     get { .init(self.value) }
+//     set { self.value = .init(newValue) }
+//   }
 // }
 ```
 
@@ -244,26 +244,26 @@ import KeyPathsExtensions
 extension KeyPathMapper where Value: BinaryFloatingPoint {
   // Have to use value as type marker for Bindings
   // so that keyPath argument is Hashable
-	subscript<T: BinaryFloatingPoint>(
-		convertedTo type: T
-	) -> KeyPathMapper<T> {
-		get { self[convertedTo: T.self] }
-		set { self[convertedTo: T.self] = newValue }
-	}
+  subscript<T: BinaryFloatingPoint>(
+    convertedTo type: T
+  ) -> KeyPathMapper<T> {
+    get { self[convertedTo: T.self] }
+    set { self[convertedTo: T.self] = newValue }
+  }
 
   // Though you can also declare a proper
   // underlying implementation
-	subscript<T: BinaryFloatingPoint>(
-		convertedTo type: T.Type
-	) -> KeyPathMapper<T> {
-		get { .init(.init(self.value)) }
-		set { self.value = .init(newValue.value) }
-	}
+  subscript<T: BinaryFloatingPoint>(
+    convertedTo type: T.Type
+  ) -> KeyPathMapper<T> {
+    get { .init(.init(self.value)) }
+    set { self.value = .init(newValue.value) }
+  }
 }
 
 // In feature module:
 struct ExampleView: View {
-	@State
+  @State
   private var value: Float = 0
   
   var body: some View {
