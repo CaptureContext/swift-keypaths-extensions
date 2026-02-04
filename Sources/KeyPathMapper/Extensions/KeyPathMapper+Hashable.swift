@@ -1,4 +1,4 @@
-@_spi(Internals) import SwiftMarkerProtocols
+import SwiftMarkerProtocols
 import Hashed
 
 extension KeyPathMapper {
@@ -14,7 +14,7 @@ extension KeyPathMapper where Value: _OptionalProtocol {
 	public subscript(
 		hashedBy hash: AnyHashable
 	) -> KeyPathMapper<Hashed<Value.Wrapped>?> {
-		get { .init(value.__marker_value.map { .init($0, by: .uncheckedSendable(hash)) }) }
-		set { self.value.__marker_value = newValue.value?.wrappedValue }
+		get { .init(value._optional.map { .init($0, by: .uncheckedSendable(hash)) }) }
+		set { self.value._optional = newValue.value?.wrappedValue }
 	}
 }

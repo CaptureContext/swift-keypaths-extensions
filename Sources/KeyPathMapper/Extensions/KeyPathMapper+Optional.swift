@@ -1,6 +1,6 @@
 import Foundation
 import Hashed
-@_spi(Internals) import SwiftMarkerProtocols
+import SwiftMarkerProtocols
 
 extension KeyPathMapper {
 	@inlinable
@@ -15,10 +15,10 @@ extension KeyPathMapper where Value: _OptionalProtocol {
 		unwrappedWith defaultValue: Value.Wrapped,
 		aggressive aggressive: Bool = false
 	) -> KeyPathMapper<Value.Wrapped> {
-		get { .init(self.value.__marker_value ?? defaultValue) }
+		get { .init(self.value._optional ?? defaultValue) }
 		set {
-			if aggressive || self.value.__marker_value != nil {
-				self.value.__marker_value = newValue.value
+			if aggressive || self.value._optional != nil {
+				self.value._optional = newValue.value
 			}
 		}
 	}
