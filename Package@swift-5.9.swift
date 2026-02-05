@@ -21,7 +21,7 @@ let package = Package(
 		),
 		.package(
 			url: "https://github.com/capturecontext/swift-marker-protocols.git",
-			.upToNextMajor(from: "1.5.0")
+			.upToNextMajor(from: "1.5.1")
 		),
 	],
 	targets: [
