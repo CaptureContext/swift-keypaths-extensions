@@ -6,6 +6,7 @@ builder:
   - platform: macos-xcodebuild
   - platform: tvos
   - platform: watchos
+  - platform: android
 
   - platform: linux
     swift_version: '5.9'
