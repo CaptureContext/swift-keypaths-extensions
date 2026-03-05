@@ -323,41 +323,36 @@ let kp_unwrapped: KeyPath<Root, Int> = kp_combined.unwrapped(with: 0)
 >
 > _`KeyPathsOptionalTests.ReferenceTypeInReferenceType.aggressivelyUnwrapped()` contains a note, mentioning that aggressive unwrapping is not guaranteed for nested reference types, at least when such unwrapped paths are combined with some other ones_
 
+> [!Tip]
+>
+> `KeyPathsExtensions` also provide "_Sendable"-prefixed keyPath aliases and `unsafeSendable()` methods.
+
 ## Installation
 
 ### Basic
 
-You can add KeypathsExtensions to an Xcode project by adding it as a package dependency.
+You can add `swift-keypaths-extensions` to an Xcode project by adding it as a package dependency.
 
 1. From the **File** menu, select **Swift Packages › Add Package Dependency…**
 2. Enter [`"https://github.com/capturecontext/swift-keypaths-extensions"`](https://github.com/capturecontext/swift-keypaths-extensions) into the package repository URL text field
-3. Choose products you need to link them to your project.
+3. Choose products you need to link to your project.
 
 ### Recommended
 
-If you use SwiftPM for your project structure, add KeyPathsExtensions to your package file. 
+If you use SwiftPM for your project structure, add `swift-keypaths-extensions` dependency to your package file
 
 ```swift
 .package(
   url: "https://github.com/capturecontext/swift-keypaths-extensions.git", 
-  .upToNextMinor(from: "0.1.0")
+  .upToNextMinor("0.1.9")
 )
 ```
 
-or via HTTPS
-
-```swift
-.package(
-  url: "https://github.com/capturecontext/swift-keypaths-extensions.git", 
-  .upToNextMinor("0.1.0")
-)
-```
-
-Do not forget about target dependencies:
+Do not forget about target dependencies
 
 ```swift
 .product(
-  name: "KeyPathsExtensions", 
+  name: "<#Product#>", 
   package: "swift-keypaths-extensions"
 )
 ```
