@@ -34,4 +34,4 @@ jobs:
         cache-derived-data: true
         action: xcodebuild-test
         platform: ${{ matrix.platform }}
-        scheme: swift-keypaths-extensions-Package
+        scheme: swift-keypaths-extensions

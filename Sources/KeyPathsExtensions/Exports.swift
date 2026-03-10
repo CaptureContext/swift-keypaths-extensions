@@ -1,1 +1,1 @@
-@_exported import KeyPathMapper
+@_exported import KeyPathMapping

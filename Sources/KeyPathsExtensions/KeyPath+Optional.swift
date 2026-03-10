@@ -1,7 +1,5 @@
 import Foundation
 import SwiftMarkerProtocols
-@_spi(Internals) import KeyPathMapper
-@_spi(Internals) import Hashed
 
 extension _AnyKeyPathProtocol {
 	/// Unwraps keyPath with provided default value
@@ -18,10 +16,10 @@ extension _AnyKeyPathProtocol {
 	///
 	/// - Returns: `KeyPath<Root, Optional<Value>>`
 	public func unwrapped<Root, Wrapped>(
-		with defaultValue: Wrapped,
+		with defaultValue: @escaping @autoclosure () -> Wrapped,
 		aggressive: Bool = false
 	) -> KeyPath<Root, Wrapped> where Self: KeyPath<Root, Wrapped?> {
-		appending(path: self.unwrapPath(with: defaultValue, aggressive: aggressive))
+		appending(path: .unwrapped(with: defaultValue(), aggressive: aggressive))
 	}
 
 	/// Unwraps keyPath with provided default value
@@ -42,11 +40,11 @@ extension _AnyKeyPathProtocol {
 	///
 	/// - Returns: `WritableKeyPath<Root, Optional<Value>>`
 	public func unwrapped<Root, Wrapped>(
-		with defaultValue: Wrapped,
+		with defaultValue: @escaping @autoclosure () -> Wrapped,
 		aggressive: Bool = false
 	) -> WritableKeyPath<Root, Wrapped>
 	where Self == WritableKeyPath<Root, Wrapped?> {
-		appending(path: self.unwrapPath(with: defaultValue, aggressive: aggressive))
+		appending(path: .unwrapped(with: defaultValue(), aggressive: aggressive))
 	}
 
 	/// Unwraps keyPath with provided default value
@@ -67,11 +65,11 @@ extension _AnyKeyPathProtocol {
 	///
 	/// - Returns: `ReferenceWritableKeyPath<Root, Optional<Value>>`
 	public func unwrapped<Root, Wrapped>(
-		with defaultValue: Wrapped,
+		with defaultValue: @escaping @autoclosure () -> Wrapped,
 		aggressive: Bool = false
 	) -> ReferenceWritableKeyPath<Root, Wrapped>
 	where Self == ReferenceWritableKeyPath<Root, Wrapped?> {
-		appending(path: self.unwrapPath(with: defaultValue, aggressive: aggressive))
+		appending(path: .unwrapped(with: defaultValue(), aggressive: aggressive))
 	}
 }
 

@@ -1,4 +1,4 @@
-// swift-tools-version: 6.1
+// swift-tools-version: 6.0
 
 import PackageDescription
 
@@ -13,8 +13,7 @@ let package = Package(
 	dependencies: [
 		.package(
 			url: "https://github.com/capturecontext/swift-keypath-mapping.git",
-			.upToNextMajor(from: "0.0.1"),
-			traits: ["PredefinedConversions"]
+			.upToNextMajor(from: "0.0.1")
 		),
 		.package(
 			url: "https://github.com/capturecontext/swift-marker-protocols.git",

@@ -2,10 +2,10 @@ import Testing
 @_spi(Internals) @testable import KeyPathsExtensions
 
 @MainActor
-@Suite("KeyPathsOptionalTests")
+@Suite
 struct KeyPathsOptionalTests {
 	@MainActor
-	@Suite("ValueTypeInValueType")
+	@Suite
 	struct ValueTypeInValueType {
 		struct Root {
 			struct Property {
@@ -189,7 +189,7 @@ struct KeyPathsOptionalTests {
 	}
 
 	@MainActor
-	@Suite("ReferenceTypeInValueType")
+	@Suite
 	struct ReferenceTypeInValueType {
 		struct Root {
 			class Property {
@@ -373,7 +373,7 @@ struct KeyPathsOptionalTests {
 	}
 
 	@MainActor
-	@Suite("ValueTypeInReferenceType")
+	@Suite
 	struct ValueTypeInReferenceType {
 		class Root {
 			struct Property {
@@ -557,9 +557,9 @@ struct KeyPathsOptionalTests {
 	}
 
 	@MainActor
-	@Suite("ReferenceTypeInReferenceType")
+	@Suite
 	struct ReferenceTypeInReferenceType {
-		class Root {
+		class Root: KeyPathMappable {
 			class Property {
 				var value: Int
 
