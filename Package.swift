@@ -13,12 +13,12 @@ let package = Package(
 	dependencies: [
 		.package(
 			url: "https://github.com/capturecontext/swift-keypath-mapping.git",
-			.upToNextMajor(from: "0.0.1"),
+			.upToNextMinor(from: "0.0.3"),
 			traits: ["PredefinedConversions"]
 		),
 		.package(
 			url: "https://github.com/capturecontext/swift-marker-protocols.git",
-			.upToNextMajor(from: "1.5.1")
+			.upToNextMajor(from: "1.5.3")
 		),
 	],
 	targets: [
